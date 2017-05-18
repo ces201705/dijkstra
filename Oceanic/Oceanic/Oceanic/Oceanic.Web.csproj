@@ -202,6 +202,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\airliner.png" />
+    <Content Include="Images\boat.png" />
+    <Content Include="Images\car.png" />
+    <Content Include="Images\oceanic.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\wa-oapln - FTP.pubxml" />
