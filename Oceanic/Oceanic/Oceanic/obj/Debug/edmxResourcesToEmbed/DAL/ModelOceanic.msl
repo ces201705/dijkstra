@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="Model.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Segments">
+      <EntityTypeMapping TypeName="Model.Segment">
+        <MappingFragment StoreEntitySet="Segment">
+          <ScalarProperty Name="EndLocationId" ColumnName="EndLocationId" />
+          <ScalarProperty Name="StartLocationId" ColumnName="StartLocationId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
