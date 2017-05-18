@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+p {
+    font-size: larger;
+}
+
+img {
+    max-width: 25%;
+}
+table.result td {
+    padding: 40px;
+}

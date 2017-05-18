@@ -15,18 +15,21 @@ namespace Oceanic.Controllers
 
         public ServiceController()
         {
-            
+
         }
         public ServiceController(ISegmentRepository segmentRepository1)
         {
             _segmentRepository = segmentRepository1;
         }
 
-        public ActionResult GetSegments(int parcelWeight, int parcelMaxDimensionSize)
+        public ActionResult Segments(int parcelWeight, int parcelMaxDimensionSize)
         {
-            var segments = new SegmentRepository(new Entities()).GetSegmentsForSearch(parcelWeight, parcelMaxDimensionSize);
+            var segments = new SegmentRepository(new Entities()).GetSegmentsForSearch(parcelWeight, parcelMaxDimensionSize).Select(o => new { SourceLocationName = o.StartLocation.Name, EndLocationName = o.EndLocation.Name, Time = o.Time, Price = o.Price, ProviderName="Oceanic" });
+
+            //string x = ExternalServiceHelper.GetTelstarSegments();
 
             return Json(segments, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

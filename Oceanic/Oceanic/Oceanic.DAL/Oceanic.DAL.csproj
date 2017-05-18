@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExternalServiceHelper.cs" />
     <Compile Include="Location.cs">
       <DependentUpon>ModelOceanic.tt</DependentUpon>
     </Compile>
