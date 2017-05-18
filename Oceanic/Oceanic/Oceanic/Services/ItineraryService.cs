@@ -36,8 +36,9 @@ namespace Oceanic.Services
 
             var vertex1 = _graphLogic.GetVertexByIdentifier(model.StartLocation.Id);
             var vertex2 = _graphLogic.GetVertexByIdentifier(model.EndLocation.Id);
+            var weightFunc = GetweightFunction(model);
 
-            return _itineraryFinder.GetItinerary(vertex1, vertex2, x => x.SegmentValues.Time);
+            return _itineraryFinder.GetItinerary(vertex1, vertex2, weightFunc);
         }
 
         private IList<SegmentModel> GetSegments(SearchViewModel model)
@@ -54,6 +55,21 @@ namespace Oceanic.Services
                 model.Height,
                 model.Width
             }.Max();
+        }
+
+        private Func<ISegment, decimal> GetweightFunction(SearchViewModel mode)
+        {
+            switch (mode.ItineraryType)
+            {
+                case ItineraryType.Cheapest:
+                    return x => x.SegmentValues.Cost;
+                case ItineraryType.Fastest:
+                    return x => x.SegmentValues.Time;
+                case ItineraryType.Optimal:
+                    return x => 0.4m * x.SegmentValues.Time + 0.6m * x.SegmentValues.Cost;
+                default:
+                    return x => x.SegmentValues.Time;
+            }
         }
     }
 }

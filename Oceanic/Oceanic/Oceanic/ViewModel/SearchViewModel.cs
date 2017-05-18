@@ -26,7 +26,7 @@ namespace Oceanic.Models
         public int Weight { get; set; }
 
         [Required]
-        public string ItineraryType { get; set; }
+        public ItineraryType ItineraryType { get; set; }
 
         public List<Location> Locations { get; set; }
 

@@ -27,7 +27,7 @@ namespace Oceanic.Controllers
             searchViewModel.Locations = new List<DAL.Location>();
             searchViewModel.Locations.Add(new DAL.Location() { Name = "Warszawa" });
             searchViewModel.Locations.Add(new DAL.Location() { Name = "Serock" });
-            searchViewModel.ItineraryType = "Cheapest";
+            searchViewModel.ItineraryType = ItineraryType.Cheapest;
             searchViewModel.Weight = 0;
             searchViewModel.Depth = 0;
             searchViewModel.Height = 0;
@@ -39,7 +39,7 @@ namespace Oceanic.Controllers
         [Authorize]
         public ActionResult SearchResult(SearchViewModel model)
         {
-            var result = _itineraryService.FindItinerary(model);
+            //var result = _itineraryService.FindItinerary(model);
 
             SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
             searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Katowice" });
