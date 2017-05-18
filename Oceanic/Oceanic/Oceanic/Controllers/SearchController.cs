@@ -29,9 +29,7 @@ namespace Oceanic.Controllers
             Oceanic.DAL.Entities entities = new DAL.Entities();
 
             SearchViewModel searchViewModel = new SearchViewModel();
-            searchViewModel.Locations = new List<DAL.Location>();
-            searchViewModel.Locations.Add(new DAL.Location() { Name = "Warszawa" });
-            searchViewModel.Locations.Add(new DAL.Location() { Name = "Serock" });
+            searchViewModel.Locations = entities.Location.ToList();
             searchViewModel.ItineraryType = ItineraryType.Cheapest;
             searchViewModel.Weight = 0;
             searchViewModel.Depth = 0;
