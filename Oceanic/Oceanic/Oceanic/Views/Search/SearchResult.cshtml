@@ -1,4 +1,6 @@
-﻿@model Oceanic.Models.SearchResultViewModel
+﻿@using Oceanic.DAL
+@using Oceanic.Models
+@model Oceanic.Models.SearchResultViewModel
 
 @{
     ViewBag.Title = "Search result";
@@ -8,37 +10,90 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="col-md-4">
-            <div class="row">
-                <p>Legend</p>
+        <div class="row">
+            <div class="col-md-4" style="text-align: center">
+                <div class="row">
+                    <p>Legend</p>
+                </div>
+                <div class="row">
+                    <img src="../images/airliner.png" alt="Oceanic Airlines">
+                </div>
+                <div class="row">
+                    <img src="../images/car.png" alt="Oceanic Airlines">
+                </div>
+                <div class="row">
+                    <img src="../images/boat.png" alt="Oceanic Airlines">
+                </div>
             </div>
-            <div class="row">
-                <img src="../images/airliner.png" alt="Oceanic Airlines">
-            </div>
-            <div class="row">
-                <img src="../images/car.png" alt="Oceanic Airlines">
-            </div>
-            <div class="row">
-                <img src="../images/boat.png" alt="Oceanic Airlines">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <table class="result table-bordered">
+            <div class="col-md-4">
+                <table class="result table-bordered" style="margin: 0px auto;">
+                    @{
+                        string styles; 
+                        ResultSegment previousSegment = null;
+                    }
+
                     @foreach (var item in Model.Segments)
                     {
-                        <tr>
-                            <td>
-                                @item.LocationName
-                            </td>
-                        </tr>
+                        if (@item.Provider == "Telstar")
+                        {
+                            styles = "background-color: #ed1c24";
+                        }
+                        else if (@item.Provider == "Oceanic")
+                        {
+                            styles = "background-color: #22b14c";
+                        }
+                        else
+                        {
+                            styles = "background-color: #3f48cc";
+                        }
+                        if (previousSegment == null)
+                        {
+                            <tr>
+                                <td style="@styles; color: white">
+                                    @item.DepartureLocationName
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="@styles; color: white">
+                                    @item.DestinationLocationName
+                                </td>
+                            </tr>
+                        }
+                        else if (previousSegment.Provider != @item.Provider)
+                        {
+                            <tr>
+                                <td style="@styles; color: white">
+                                    @item.DepartureLocationName
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="@styles; color: white">
+                                    @item.DestinationLocationName
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td style="@styles; color: white">
+                                    @item.DestinationLocationName
+                                </td>
+                            </tr>
+                        }
+                        previousSegment = @item;
                     }
-            </table>
-        </div>
+                </table>
+            </div>
 
-        <div class="col-md-4">
-            <p>Total time: @Model.TotalTime H</p>
-            <p>Total cost: @Model.TotalPrice USD</p>
+            <div class="col-md-4" style="text-align: center">
+                <p>Total time: @Model.TotalTime H</p>
+                <p>Total cost: @Model.TotalPrice USD</p>
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 5%; text-align: center">
+                <a>@Html.ActionLink("Search again", "Index", "Search", routeValues: null, htmlAttributes: new { id = "searchLink", @class = "btn btn-primary btn-lg" })</a>
+            </div>
+        </div>
 </div>
 
