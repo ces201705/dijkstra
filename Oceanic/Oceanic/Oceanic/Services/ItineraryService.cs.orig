@@ -43,14 +43,9 @@ namespace Oceanic.Services
 
         private IList<SegmentModel> GetSegments(SearchViewModel model)
         {
-<<<<<<< HEAD
-            var segments = _segmentRepository.GetSegmentsForSearch(model.Weight.Value, GetMaxSize(model));
-=======
             Entities context = new Entities();
             List<Location> locations = context.Location.ToList();
-
-
-            var segments = _segmentRepository.GetSegmentsForSearch(model.Weight, GetMaxSize(model));
+            var segments = _segmentRepository.GetSegmentsForSearch(model.Weight.Value, GetMaxSize(model));
 
             //List<TestSegment> telstarSegments = ExternalServiceHelper.GetTestSegments();
             //foreach (TestSegment segment in telstarSegments)
@@ -75,8 +70,18 @@ namespace Oceanic.Services
             //    segments.Add(segmentModel);
             //}
 
-            List<TelstarSegment> eastIndiaSegments = ExternalServiceHelper.GetTelstarSegments();
-            foreach (TelstarSegment segment in eastIndiaSegments)
+<<<<<<< HEAD
+            //List<TelstarSegment> telstarSegments = ExternalServiceHelper.GetTelstarSegments();
+            //foreach (TelstarSegment segment in telstarSegments)
+            //{
+            //    Location startLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.SourceLocationName.ToLower().Trim());
+            //    if (startLocation == null)
+            //    {
+            //        continue;
+            //    }
+=======
+            List<TelstarSegment> telstarSegments = ExternalServiceHelper.GetTelstarSegments();
+            foreach (TelstarSegment segment in telstarSegments)
             {
                 Location startLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.SourceLocationName.ToLower().Trim());
                 if (startLocation == null)
@@ -95,11 +100,24 @@ namespace Oceanic.Services
                 segmentModel.EndLocation = new LocationModel() { Id = endLocation.Id, Name = endLocation.Name };
                 segmentModel.Price = segment.Price;
                 segmentModel.Time = segment.Time;
+                segmentModel.ProviderName = "Telstar";
                 segments.Add(segmentModel);
+>>>>>>> a066c9c12b1b303a23617b684645483cc8d684ae
 
-            }
+            //    Location endLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.DestinationLocationName.ToLower().Trim());
+            //    if (endLocation == null)
+            //    {
+            //        continue;
+            //    }
 
->>>>>>> dc0652d315d6bea0305129c3b72feaae86ec822e
+            //    SegmentModel segmentModel = new SegmentModel();
+            //    segmentModel.StartLocation = new LocationModel() { Id = startLocation.Id, Name = startLocation.Name };
+            //    segmentModel.EndLocation = new LocationModel() { Id = endLocation.Id, Name = endLocation.Name };
+            //    segmentModel.Price = segment.Price;
+            //    segmentModel.Time = segment.Time;
+            //    segments.Add(segmentModel);
+            //}
+
             return segments;
         }
 

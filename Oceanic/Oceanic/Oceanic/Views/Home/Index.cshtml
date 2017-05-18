@@ -19,10 +19,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-8">
-        <p style="font-size: xx-large">Do you want to send a parcel? Login here!</p>
-    </div>
-    <div class="col-md-4">
-        <a>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary btn-lg" })</a>
+    <div class="col-md-12" style="text-align: center">
+        <a>@Html.ActionLink("Search", "Index", "Search", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary btn-lg", @style = "min-width: 50px; max-width: 800px; width: 100%;" })</a>
     </div>
 </div>

@@ -18,7 +18,9 @@ namespace Oceanic.Models
 
     public class ResultSegment
     {
-        public string LocationName { get; set; }
+        public string DepartureLocationName { get; set; }
+        public string DestinationLocationName { get; set; }
+        public string Provider { get; set; }
         public decimal Time { get; set; }
         public decimal Price { get; set; }
     }

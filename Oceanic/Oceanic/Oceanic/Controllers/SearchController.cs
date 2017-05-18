@@ -44,9 +44,10 @@ namespace Oceanic.Controllers
 
 
             SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
-            searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Katowice" });
-            searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Warszawa" });
-            searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Zakopane" });
+            searchResultViewModel.Segments.Add(new ResultSegment() { DepartureLocationName = "Katowice", DestinationLocationName  = "Warszawa", Provider = "Telstar"});
+            searchResultViewModel.Segments.Add(new ResultSegment() { DepartureLocationName = "Warszawa", DestinationLocationName = "Zakopane", Provider = "Oceanic" });
+            searchResultViewModel.Segments.Add(new ResultSegment() { DepartureLocationName = "Zakopane", DestinationLocationName = "Krakow", Provider = "Oceanic" });
+            searchResultViewModel.Segments.Add(new ResultSegment() { DepartureLocationName = "Krakow", DestinationLocationName = "Serock", Provider = "EastIndia" });
             searchResultViewModel.TotalPrice = 30;
             searchResultViewModel.TotalTime = 10;
             return View(searchResultViewModel);
