@@ -50,7 +50,7 @@ namespace Oceanic.Controllers
             searchResultViewModel.Segments.Add(new ResultSegment() { DepartureLocationName = "Krakow", DestinationLocationName = "Serock", Provider = "EastIndia" });
             searchResultViewModel.TotalPrice = 30;
             searchResultViewModel.TotalTime = 10;
-            return View(searchResultViewModel);
+            return View(result);
         }
 
     }

@@ -1,6 +1,6 @@
-﻿@using Oceanic.DAL
+﻿@using Oceanic.Dijkstra
 @using Oceanic.Models
-@model Oceanic.Models.SearchResultViewModel
+@model Oceanic.Dijkstra.Itinerary
 
 @{
     ViewBag.Title = "Search result";
@@ -28,17 +28,18 @@
             <div class="col-md-4">
                 <table class="result table-bordered" style="margin: 0px auto;">
                     @{
-                        string styles; 
-                        ResultSegment previousSegment = null;
+                        string styles;
+                        ISegment previousSegment = null;
+                        Model.Segments.Reverse();
                     }
 
                     @foreach (var item in Model.Segments)
                     {
-                        if (@item.Provider == "Telstar")
+                        if (@item.SegmentValues.Provider == "Telstar")
                         {
                             styles = "background-color: #ed1c24";
                         }
-                        else if (@item.Provider == "Oceanic")
+                        else if (@item.SegmentValues.Provider == "Oceanic")
                         {
                             styles = "background-color: #22b14c";
                         }
@@ -50,25 +51,25 @@
                         {
                             <tr>
                                 <td style="@styles; color: white">
-                                    @item.DepartureLocationName
+                                    @item.VertexStart
                                 </td>
                             </tr>
                             <tr>
                                 <td style="@styles; color: white">
-                                    @item.DestinationLocationName
+                                    @item.VertexEnd
                                 </td>
                             </tr>
                         }
-                        else if (previousSegment.Provider != @item.Provider)
+                        else if (previousSegment.SegmentValues.Provider != @item.SegmentValues.Provider)
                         {
                             <tr>
                                 <td style="@styles; color: white">
-                                    @item.DepartureLocationName
+                                    @item.VertexStart
                                 </td>
                             </tr>
                             <tr>
                                 <td style="@styles; color: white">
-                                    @item.DestinationLocationName
+                                    @item.VertexEnd
                                 </td>
                             </tr>
                         }
@@ -76,7 +77,7 @@
                         {
                             <tr>
                                 <td style="@styles; color: white">
-                                    @item.DestinationLocationName
+                                    @item.VertexEnd
                                 </td>
                             </tr>
                         }
@@ -86,8 +87,8 @@
             </div>
 
             <div class="col-md-4" style="text-align: center">
-                <p>Total time: @Model.TotalTime H</p>
-                <p>Total cost: @Model.TotalPrice USD</p>
+                <p>Total time: @(Model.TotalTime/60) H</p>
+                <p>Total cost: @Model.TotalCost USD</p>
             </div>
         </div>
         <div class="row">
