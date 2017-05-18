@@ -1,6 +1,6 @@
 ﻿@using Oceanic.Dijkstra
 @using Oceanic.Models
-@model Oceanic.Dijkstra.Itinerary
+@model Oceanic.Dijkstra.IItinerary
 
 @{
     ViewBag.Title = "Search result";
@@ -40,7 +40,6 @@
                             @{
                                 string styles;
                                 ISegment previousSegment = null;
-                                Model.Segments.Reverse();
                             }
                             @foreach (var item in Model.Segments)
                             {

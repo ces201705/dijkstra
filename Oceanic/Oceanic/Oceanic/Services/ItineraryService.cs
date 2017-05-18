@@ -36,9 +36,44 @@ namespace Oceanic.Services
 
             var vertex1 = _graphLogic.GetVertexByIdentifier(model.StartLocationId);
             var vertex2 = _graphLogic.GetVertexByIdentifier(model.EndLocationId);
+            if (vertex1 == null || vertex2 == null)
+            {
+                return new Itinerary()
+                {
+                    IsValid = true,
+                    Segments = new List<ISegment>()
+                };
+            }
             var weightFunc = GetweightFunction(model);
 
-            return _itineraryFinder.GetItinerary(vertex1, vertex2, weightFunc);
+            var result = _itineraryFinder.GetItinerary(vertex1, vertex2, weightFunc);
+
+            return FixOrder(result, model);
+        }
+
+        private IItinerary FixOrder(IItinerary result, SearchViewModel model)
+        {
+            if (!result.Segments.Any())
+            {
+                return result;
+            }
+            result.Segments.Reverse();
+            if (result.Segments[0].VertexStart.VertexIdentifier != model.StartLocationId)
+            {
+                var temp = result.Segments[0].VertexStart;
+                result.Segments[0].VertexStart = result.Segments[0].VertexEnd;
+                result.Segments[0].VertexEnd = temp;
+            }
+            for (int i = 1; i < result.Segments.Count; i++)
+            {
+                if (result.Segments[i].VertexStart.VertexIdentifier != result.Segments[i-1].VertexEnd.VertexIdentifier)
+                {
+                    var temp = result.Segments[i].VertexStart;
+                    result.Segments[i].VertexStart = result.Segments[i].VertexEnd;
+                    result.Segments[i].VertexEnd = temp;
+                }
+            }
+            return result;
         }
 
         private IList<SegmentModel> GetSegments(SearchViewModel model)
@@ -70,28 +105,31 @@ namespace Oceanic.Services
             //    segments.Add(segmentModel);
             //}
 
-            //List<TelstarSegment> telstarSegments = ExternalServiceHelper.GetTelstarSegments();
-            //foreach (TelstarSegment segment in telstarSegments)
-            //{
-            //    Location startLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.SourceLocationName.ToLower().Trim());
-            //    if (startLocation == null)
-            //    {
-            //        continue;
-            //    }
+            List<TelstarSegment> telstarSegments = ExternalServiceHelper.GetTelstarSegments();
+            foreach (TelstarSegment segment in telstarSegments)
+            {
+                Location startLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.SourceLocationName.ToLower().Trim());
+                if (startLocation == null)
+                {
+                    continue;
+                }
 
-            //    Location endLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.DestinationLocationName.ToLower().Trim());
-            //    if (endLocation == null)
-            //    {
-            //        continue;
-            //    }
+                Location endLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.DestinationLocationName.ToLower().Trim());
+                if (endLocation == null)
+                {
+                    continue;
+                }
 
-            //    SegmentModel segmentModel = new SegmentModel();
-            //    segmentModel.StartLocation = new LocationModel() { Id = startLocation.Id, Name = startLocation.Name };
-            //    segmentModel.EndLocation = new LocationModel() { Id = endLocation.Id, Name = endLocation.Name };
-            //    segmentModel.Price = segment.Price;
-            //    segmentModel.Time = segment.Time;
-            //    segmentModel.ProviderName = "Telstar";
-            //}
+                SegmentModel segmentModel = new SegmentModel();
+                segmentModel.StartLocation = new LocationModel() { Id = startLocation.Id, Name = startLocation.Name };
+                segmentModel.StartLocationId = startLocation.Id;
+                segmentModel.EndLocation = new LocationModel() { Id = endLocation.Id, Name = endLocation.Name };
+                segmentModel.EndLocationId = endLocation.Id;
+                segmentModel.Price = segment.Price;
+                segmentModel.Time = segment.Time;
+                segmentModel.ProviderName = "Telstar";
+                segments.Add(segmentModel);
+            }
 
             return segments;
         }

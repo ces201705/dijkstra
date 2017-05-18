@@ -8,19 +8,10 @@ namespace Oceanic.Dijkstra
 {
     public interface ISegment
     {
-        IVertex VertexStart
-        {
-            get;
-        }
+        IVertex VertexStart { get; set; }
 
-        IVertex VertexEnd
-        {
-            get;
-        }
+        IVertex VertexEnd { get; set; }
 
-        SegmentValues SegmentValues
-        {
-            get;
-        }
+        SegmentValues SegmentValues { get; set; }
     }
 }

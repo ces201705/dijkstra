@@ -37,13 +37,25 @@ namespace Oceanic.Dijkstra
         {
             if (!changeDirection)
             {
-                RoutesFrom.Add(segment.VertexEnd.VertexIdentifier, segment);
-                Neighbours.Add(segment.VertexEnd);
+                if (!RoutesFrom.ContainsKey(segment.VertexEnd.VertexIdentifier))
+                {
+                    RoutesFrom.Add(segment.VertexEnd.VertexIdentifier, segment);
+                }
+                if (!Neighbours.Any(x => x.Equals(segment.VertexEnd)))
+                {
+                    Neighbours.Add(segment.VertexEnd);
+                }
             }
             else
             {
-                RoutesFrom.Add(segment.VertexStart.VertexIdentifier, segment);
-                Neighbours.Add(segment.VertexStart);
+                if (!RoutesFrom.ContainsKey(segment.VertexStart.VertexIdentifier))
+                {
+                    RoutesFrom.Add(segment.VertexStart.VertexIdentifier, segment);
+                }
+                if (!Neighbours.Any(x => x.Equals(segment.VertexStart)))
+                {
+                    Neighbours.Add(segment.VertexStart);
+                }
             }
         }
     }
