@@ -34,8 +34,8 @@ namespace Oceanic.Services
             var segments = ConverterHelper.Convert(segmentModels);
             _graphLogic.ApplyGraphSegment(segments);
 
-            var vertex1 = _graphLogic.GetVertexByIdentifier(model.StartLocation.Id);
-            var vertex2 = _graphLogic.GetVertexByIdentifier(model.EndLocation.Id);
+            var vertex1 = _graphLogic.GetVertexByIdentifier(model.StartLocationId);
+            var vertex2 = _graphLogic.GetVertexByIdentifier(model.EndLocationId);
             var weightFunc = GetweightFunction(model);
 
             return _itineraryFinder.GetItinerary(vertex1, vertex2, weightFunc);

@@ -30,8 +30,8 @@ namespace Oceanic.Models
 
         public List<Location> Locations { get; set; }
 
-        public Location StartLocation { get; set; }
+        public int StartLocationId { get; set; }
 
-        public Location EndLocation { get; set; }
+        public int EndLocationId { get; set; }
     }
 }
