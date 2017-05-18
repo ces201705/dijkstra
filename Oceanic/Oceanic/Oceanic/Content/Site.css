@@ -26,3 +26,10 @@ textarea {
 p {
     font-size: larger;
 }
+
+img {
+    max-width: 25%;
+}
+table.result td {
+    padding: 40px;
+}

@@ -1,20 +1,44 @@
 ﻿@model Oceanic.Models.SearchResultViewModel
 
-    @{
-        ViewBag.Title = "Search result";
-    }
-
-    <p>Seearch result !!!</p>
-
-    @foreach (var item in Model.Segments)
-    {
-        <div>
-            @item.LocationName
-            <hr />
+@{
+    ViewBag.Title = "Search result";
+}
+<div class="jumbotron">
+    <h1 style="text-align: center">Search result</h1>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <div class="row">
+                <p>Legend</p>
+            </div>
+            <div class="row">
+                <img src="../images/airliner.png" alt="Oceanic Airlines">
+            </div>
+            <div class="row">
+                <img src="../images/car.png" alt="Oceanic Airlines">
+            </div>
+            <div class="row">
+                <img src="../images/boat.png" alt="Oceanic Airlines">
+            </div>
         </div>
-    }
+        <div class="col-md-4">
+            <table class="result table-bordered">
+                    @foreach (var item in Model.Segments)
+                    {
+                        <tr>
+                            <td>
+                                @item.LocationName
+                            </td>
+                        </tr>
+                    }
+            </table>
+        </div>
 
-
-<p>Total time: @Model.TotalTime</p>
-<p>Total cost: @Model.TotalPrice</p>
+        <div class="col-md-4">
+            <p>Total time: @Model.TotalTime H</p>
+            <p>Total cost: @Model.TotalPrice USD</p>
+        </div>
+    </div>
+</div>
 

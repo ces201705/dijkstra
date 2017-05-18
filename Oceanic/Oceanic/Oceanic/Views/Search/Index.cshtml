@@ -3,61 +3,92 @@
 @{
     ViewBag.Title = "Search";
 }
-<div class="row">
-    <section id="searchForm">
-        @using (Html.BeginForm("SearchResult", "Search", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            <h4>Use a local account to log in.</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Height, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Height, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Width, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Width, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Width, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Depth, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Depth, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Depth, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Weight, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Weight, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Weight, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    @Html.RadioButtonFor(m => m.ItineraryType, "Cheapest", new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    @Html.RadioButtonFor(m => m.ItineraryType, "Fastest", new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    @Html.RadioButtonFor(m => m.ItineraryType, "Optimal", new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Search" class="btn btn-primary" />
-                </div>
-            </div>
-        }
+<div class="jumbotron">
+    <h1 style="text-align: center">Search for itinerary</h1>
+</div>
 
-    </section>
+<div class="row">
+    <div class="col-md-12">
+        <section id="searchForm">
+            @using (Html.BeginForm("SearchResult", "Search", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Height, new { @class = "col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Height, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Width, new { @class = "col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Width, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Width, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Depth, new { @class = "col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Depth, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Depth, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Weight, new { @class = "col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Weight, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Weight, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option value="katowice">Katowice</option>
+                                <option value="warszawa">Warszawa</option>
+                                <option value="zakopane">Zakopane</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option value="katowice">Katowice</option>
+                                <option value="warszawa">Warszawa</option>
+                                <option value="zakopane">Zakopane</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <p>Itinerary type</p>
+                    </div>
+                <div class="col-md-2">
+                    <div class="radio">
+                        <label>
+                            @Html.RadioButtonFor(m => m.ItineraryType, "Cheapest")Cheapest
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            @Html.RadioButtonFor(m => m.ItineraryType, "Fastest")Fastest
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            @Html.RadioButtonFor(m => m.ItineraryType, "Optimal")Optimal
+                        </label>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-11" style="text-align: right">
+                            <input type="submit" value="Search" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </section>
+    </div>
 </div>
