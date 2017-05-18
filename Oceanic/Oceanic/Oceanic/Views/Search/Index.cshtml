@@ -45,10 +45,29 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
+<<<<<<< Updated upstream
                             @Html.DropDownListFor(model => model.StartLocationId, new SelectList(Model.Locations, "Id", "Name"), new { @class = "form-control" })
                         </div>
                         <div class="form-group">
                             @Html.DropDownListFor(model => model.EndLocationId, new SelectList(Model.Locations, "Id", "Name"), new { @class = "form-control" })
+=======
+                            <p>Departure.</p>
+                            <select class="form-control">
+                                @foreach (var item in Model.Locations)
+                                {
+                                    <option value="@item.Name">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p>Destination.</p>
+                            <select class="form-control">
+                                @foreach (var item in Model.Locations)
+                                {
+                                    <option value="@item.Name">@item.Name</option>
+                                }
+                            </select>
+>>>>>>> Stashed changes
                         </div>
                     </div>
                     <div class="col-md-2">
