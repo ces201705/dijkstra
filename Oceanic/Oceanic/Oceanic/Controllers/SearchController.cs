@@ -12,6 +12,11 @@ namespace Oceanic.Controllers
     {
         private IItineraryService _itineraryService;
 
+        public SearchController()
+        {
+            
+        }
+
         public SearchController(IItineraryService itineraryService)
         {
             _itineraryService = itineraryService;
