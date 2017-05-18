@@ -56,19 +56,19 @@
       <DependentUpon>ModelOceanic.tt</DependentUpon>
     </Compile>
     <Compile Include="ModelOceanic.Context.cs">
-      <DependentUpon>ModelOceanic.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ModelOceanic.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="ModelOceanic.cs">
-      <DependentUpon>ModelOceanic.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ModelOceanic.tt</DependentUpon>
     </Compile>
     <Compile Include="ModelOceanic.Designer.cs">
-      <DependentUpon>ModelOceanic.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ModelOceanic.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\SearchResultViewModel.cs" />
@@ -85,6 +85,14 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelOceanic.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
+    <None Include="ModelOceanic.edmx.diagram">
+      <DependentUpon>ModelOceanic.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ModelOceanic.Context.tt">
@@ -97,18 +105,6 @@
       <DependentUpon>ModelOceanic.edmx</DependentUpon>
       <LastGenOutput>ModelOceanic.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ModelOceanic.edmx.diagram">
-      <DependentUpon>ModelOceanic.edmx</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -13,6 +13,10 @@ namespace Oceanic.Controllers
     {
         private readonly ISegmentRepository _segmentRepository;
 
+        public ServiceController()
+        {
+            
+        }
         public ServiceController(ISegmentRepository segmentRepository1)
         {
             _segmentRepository = segmentRepository1;
@@ -20,7 +24,7 @@ namespace Oceanic.Controllers
 
         public ActionResult GetSegments(decimal weight)
         {
-            var segments = _segmentRepository.GetSegmentsForSearch(weight);
+            var segments = new SegmentRepository(new Entities()).GetSegmentsForSearch(weight);
 
             return Json(segments, JsonRequestBehavior.AllowGet);
         }

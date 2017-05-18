@@ -16,10 +16,11 @@ namespace Oceanic.DAL
     {
         public int Id { get; set; }
         public Nullable<decimal> Time { get; set; }
+        public Nullable<decimal> Price { get; set; }
         public Nullable<int> StartLocationId { get; set; }
         public Nullable<int> EndLocationId { get; set; }
     
-        public virtual Location EndLocation { get; set; }
-        public virtual Location StartLocation { get; set; }
+        public virtual Location Location { get; set; }
+        public virtual Location Location1 { get; set; }
     }
 }

@@ -19,9 +19,9 @@ namespace Oceanic.DAL
         public IList<SegmentModel> GetSegmentsForSearch(decimal weight)
         {
             var price = GetPrice(weight);
-            return (from s in Context.Segments
-                    join sl in Context.Locations on s.StartLocationId equals sl.Id
-                    join el in Context.Locations on s.EndLocationId equals el.Id
+            return (from s in Context.Segment
+                    join sl in Context.Location on s.StartLocationId equals sl.Id
+                    join el in Context.Location on s.EndLocationId equals el.Id
                     select new SegmentModel
                     {
                         StartLocationId = sl.Id,

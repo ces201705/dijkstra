@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Location">
           <Key>
             <PropertyRef Name="Id" />
@@ -58,30 +58,19 @@
             <End Role="Segment" EntitySet="Segment" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Locations" EntityType="Model.Location" />
-          <EntitySet Name="Segments" EntityType="Model.Segment" />
-          <AssociationSet Name="FK_Segment_EndLocation" Association="Model.FK_Segment_EndLocation">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="Segment" EntitySet="Segments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Segment_StartLocation" Association="Model.FK_Segment_StartLocation">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="Segment" EntitySet="Segments" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="Location">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Segments" Relationship="Model.FK_Segment_EndLocation" FromRole="Location" ToRole="Segment" />
-          <NavigationProperty Name="Segments1" Relationship="Model.FK_Segment_StartLocation" FromRole="Location" ToRole="Segment" />
+          <NavigationProperty Name="Segment" Relationship="Self.FK_Segment_EndLocation" FromRole="Location" ToRole="Segment" />
+          <NavigationProperty Name="Segment1" Relationship="Self.FK_Segment_StartLocation" FromRole="Location" ToRole="Segment" />
         </EntityType>
         <EntityType Name="Segment">
           <Key>
@@ -89,14 +78,15 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Time" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="StartLocationId" Type="Int32" />
           <Property Name="EndLocationId" Type="Int32" />
-          <NavigationProperty Name="EndLocation" Relationship="Model.FK_Segment_EndLocation" FromRole="Segment" ToRole="Location" />
-          <NavigationProperty Name="StartLocation" Relationship="Model.FK_Segment_StartLocation" FromRole="Segment" ToRole="Location" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Segment_EndLocation" FromRole="Segment" ToRole="Location" />
+          <NavigationProperty Name="Location1" Relationship="Self.FK_Segment_StartLocation" FromRole="Segment" ToRole="Location" />
         </EntityType>
         <Association Name="FK_Segment_EndLocation">
-          <End Type="Model.Location" Role="Location" Multiplicity="0..1" />
-          <End Type="Model.Segment" Role="Segment" Multiplicity="*" />
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="Segment" Type="Self.Segment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Location">
               <PropertyRef Name="Id" />
@@ -107,8 +97,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Segment_StartLocation">
-          <End Type="Model.Location" Role="Location" Multiplicity="0..1" />
-          <End Type="Model.Segment" Role="Segment" Multiplicity="*" />
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="Segment" Type="Self.Segment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Location">
               <PropertyRef Name="Id" />
@@ -118,27 +108,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Location" EntityType="Self.Location" />
+          <EntitySet Name="Segment" EntityType="Self.Segment" />
+          <AssociationSet Name="FK_Segment_EndLocation" Association="Self.FK_Segment_EndLocation">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Segment" EntitySet="Segment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Segment_StartLocation" Association="Self.FK_Segment_StartLocation">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Segment" EntitySet="Segment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="Locations">
+          <EntitySetMapping Name="Location">
             <EntityTypeMapping TypeName="Model.Location">
               <MappingFragment StoreEntitySet="Location">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Segments">
+          <EntitySetMapping Name="Segment">
             <EntityTypeMapping TypeName="Model.Segment">
               <MappingFragment StoreEntitySet="Segment">
-                <ScalarProperty Name="EndLocationId" ColumnName="EndLocationId" />
-                <ScalarProperty Name="StartLocationId" ColumnName="StartLocationId" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="StartLocationId" ColumnName="StartLocationId" />
+                <ScalarProperty Name="EndLocationId" ColumnName="EndLocationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -156,7 +159,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

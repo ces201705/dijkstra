@@ -25,7 +25,7 @@ namespace Oceanic.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Location> Locations { get; set; }
-        public virtual DbSet<Segment> Segments { get; set; }
+        public virtual DbSet<Location> Location { get; set; }
+        public virtual DbSet<Segment> Segment { get; set; }
     }
 }

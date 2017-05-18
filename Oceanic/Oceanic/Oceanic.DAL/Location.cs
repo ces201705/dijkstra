@@ -17,16 +17,16 @@ namespace Oceanic.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Location()
         {
-            this.Segments = new HashSet<Segment>();
-            this.Segments1 = new HashSet<Segment>();
+            this.Segment = new HashSet<Segment>();
+            this.Segment1 = new HashSet<Segment>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Segment> Segments { get; set; }
+        public virtual ICollection<Segment> Segment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Segment> Segments1 { get; set; }
+        public virtual ICollection<Segment> Segment1 { get; set; }
     }
 }

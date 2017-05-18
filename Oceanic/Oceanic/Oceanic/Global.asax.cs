@@ -35,6 +35,9 @@ namespace Oceanic
                 .ImplementedBy<SegmentRepository>()
                 .DependsOn(Dependency.OnValue("context", context))
             );
+            _container.Register(Classes.FromThisAssembly()
+                .BasedOn<IController>()
+                .LifestyleTransient());
 
 
             var controllerFactory = new WindsorControllerFactory(_container.Kernel);
