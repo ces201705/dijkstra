@@ -78,7 +78,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AlgorithmLogicTests.cs" />
+    <Compile Include="GetItineraryTests.cs" />
     <Compile Include="BaseTest.cs" />
     <Compile Include="IGraphLogic.cs" />
     <Compile Include="IItinerary.cs" />
