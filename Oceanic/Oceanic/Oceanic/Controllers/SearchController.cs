@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Oceanic.Services;
+using Oceanic.DAL;
 
 namespace Oceanic.Controllers
 {
@@ -38,6 +39,12 @@ namespace Oceanic.Controllers
         public ActionResult SearchResult(SearchViewModel model)
         {
             var result = _itineraryService.FindItinerary(model);
+
+
+            var x = ExternalServiceHelper.GetTelstarSegments();
+            var y = ExternalServiceHelper.GetEastIndiaSegments();
+
+
 
             SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
             searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Katowice" });
