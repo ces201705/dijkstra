@@ -12,11 +12,6 @@ namespace Oceanic.Controllers
     {
         private IItineraryService _itineraryService;
 
-        public SearchController()
-        {
-            
-        }
-
         public SearchController(IItineraryService itineraryService)
         {
             _itineraryService = itineraryService;
@@ -42,7 +37,7 @@ namespace Oceanic.Controllers
         [Authorize]
         public ActionResult SearchResult(SearchViewModel model)
         {
-            //var result = _itineraryService.FindItinerary(model);
+            var result = _itineraryService.FindItinerary(model);
 
             SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
             searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Katowice" });

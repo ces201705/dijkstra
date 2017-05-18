@@ -9,6 +9,8 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Oceanic.DAL;
+using Oceanic.Services;
+using Oceanic.Dijkstra;
 
 namespace Oceanic
 {
@@ -22,6 +24,8 @@ namespace Oceanic
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            BootstrapContainer();
         }
 
         private static void BootstrapContainer()
@@ -39,6 +43,18 @@ namespace Oceanic
                 .BasedOn<IController>()
                 .LifestyleTransient());
 
+            _container.Register(
+                Component.For<IItineraryService>()
+                .ImplementedBy<ItineraryService>()
+            ); 
+            _container.Register(
+                 Component.For<IItineraryFinder>()
+                 .ImplementedBy<ItineraryFinder>()
+             );
+            _container.Register(
+                 Component.For<IGraphLogic>()
+                 .ImplementedBy<GraphLogic>()
+             );
 
             var controllerFactory = new WindsorControllerFactory(_container.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
