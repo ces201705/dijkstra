@@ -11,10 +11,43 @@ namespace Oceanic.DAL
 {
     public class ExternalServiceHelper
     {
-        public static List<TelstarSegment> GetTelstarSegments()
+        public static List<TestSegment> GetTestSegments()
         {
             string url = @"http://wa-oapln.azurewebsites.net/Service/Segments?parcelWeight=4&parcelMaxDimensionSize=1";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            try
+            {
+                WebResponse response = request.GetResponse();
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                    string content = reader.ReadToEnd();
+                    JavaScriptSerializer ser = new JavaScriptSerializer();
+                    List<TestSegment> segments = ser.Deserialize<List<TestSegment>>(content);
+                    return segments;
+                }
+            }
+            catch (WebException ex)
+            {
+                WebResponse errorResponse = ex.Response;
+                using (Stream responseStream = errorResponse.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8"));
+                    String errorText = reader.ReadToEnd();
+
+
+                    // log errorText
+                }
+                throw;
+            }
+        }
+
+
+        public static List<TelstarSegment> GetTelstarSegments()
+        {
+            string url = @"http://wa-tlpln.azurewebsites.net/api/segments";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Headers.Add("telstartoken", "1234");
             try
             {
                 WebResponse response = request.GetResponse();
@@ -43,43 +76,10 @@ namespace Oceanic.DAL
         }
 
 
-        public static List<EastIndiaSegment> GetEastIndiaSegments()
-        {
-            string url = @"http://wa-tlpln.azurewebsites.net/api/segments";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Headers.Add("telstartoken", "1234");
-            try
-            {
-                WebResponse response = request.GetResponse();
-                using (Stream responseStream = response.GetResponseStream())
-                {
-                    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                    string content = reader.ReadToEnd();
-                    JavaScriptSerializer ser = new JavaScriptSerializer();
-                    List<EastIndiaSegment> segments = ser.Deserialize<List<EastIndiaSegment>>(content);
-                    return segments;
-                }
-            }
-            catch (WebException ex)
-            {
-                WebResponse errorResponse = ex.Response;
-                using (Stream responseStream = errorResponse.GetResponseStream())
-                {
-                    StreamReader reader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8"));
-                    String errorText = reader.ReadToEnd();
-
-
-                    // log errorText
-                }
-                throw;
-            }
-        }
-
-
     }
 
 
-    public class TelstarSegment
+    public class TestSegment
     {
         public string SourceLocationName { get; set; }
         public string EndLocationName { get; set; }
@@ -89,7 +89,7 @@ namespace Oceanic.DAL
 
 
 
-    public class EastIndiaSegment
+    public class TelstarSegment
     {
         public string SourceLocationName { get; set; }
         public string DestinationLocationName { get; set; }

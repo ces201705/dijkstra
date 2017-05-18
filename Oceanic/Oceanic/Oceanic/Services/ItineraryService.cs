@@ -43,7 +43,59 @@ namespace Oceanic.Services
 
         private IList<SegmentModel> GetSegments(SearchViewModel model)
         {
+            Entities context = new Entities();
+            List<Location> locations = context.Location.ToList();
+
+
             var segments = _segmentRepository.GetSegmentsForSearch(model.Weight, GetMaxSize(model));
+
+            //List<TestSegment> telstarSegments = ExternalServiceHelper.GetTestSegments();
+            //foreach (TestSegment segment in telstarSegments)
+            //{
+            //    Location startLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.SourceLocationName.ToLower().Trim());
+            //    if (startLocation == null)
+            //    {
+            //        continue;
+            //    }
+
+            //    Location endLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.EndLocationName.ToLower().Trim());
+            //    if (endLocation == null)
+            //    {
+            //        continue;
+            //    }
+
+            //    SegmentModel segmentModel = new SegmentModel();
+            //    segmentModel.StartLocation = new LocationModel() { Id = startLocation.Id, Name = startLocation.Name };
+            //    segmentModel.EndLocation = new LocationModel() { Id = endLocation.Id, Name = endLocation.Name };
+            //    segmentModel.Price = segment.Price;
+            //    segmentModel.Time = segment.Time;
+            //    segments.Add(segmentModel);
+            //}
+
+            List<TelstarSegment> eastIndiaSegments = ExternalServiceHelper.GetTelstarSegments();
+            foreach (TelstarSegment segment in eastIndiaSegments)
+            {
+                Location startLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.SourceLocationName.ToLower().Trim());
+                if (startLocation == null)
+                {
+                    continue;
+                }
+
+                Location endLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.DestinationLocationName.ToLower().Trim());
+                if (endLocation == null)
+                {
+                    continue;
+                }
+
+                SegmentModel segmentModel = new SegmentModel();
+                segmentModel.StartLocation = new LocationModel() { Id = startLocation.Id, Name = startLocation.Name };
+                segmentModel.EndLocation = new LocationModel() { Id = endLocation.Id, Name = endLocation.Name };
+                segmentModel.Price = segment.Price;
+                segmentModel.Time = segment.Time;
+                segments.Add(segmentModel);
+
+            }
+
             return segments;
         }
 

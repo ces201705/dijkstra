@@ -41,11 +41,6 @@ namespace Oceanic.Controllers
             var result = _itineraryService.FindItinerary(model);
 
 
-            var x = ExternalServiceHelper.GetTelstarSegments();
-            var y = ExternalServiceHelper.GetEastIndiaSegments();
-
-
-
             SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
             searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Katowice" });
             searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Warszawa" });
