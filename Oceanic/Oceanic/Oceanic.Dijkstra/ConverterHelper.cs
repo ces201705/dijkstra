@@ -27,5 +27,10 @@ namespace Oceanic.Dijkstra
 
             return returnItem;
         }
+
+        public static IList<ISegment> Convert(IList<SegmentModel> segments)
+        {
+            return segments.Select(Convert).ToList();
+        }
     }
 }

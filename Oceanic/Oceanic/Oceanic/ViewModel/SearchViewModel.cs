@@ -29,5 +29,9 @@ namespace Oceanic.Models
         public string ItineraryType { get; set; }
 
         public List<Location> Locations { get; set; }
+
+        public Location StartLocation { get; set; }
+
+        public Location EndLocation { get; set; }
     }
 }

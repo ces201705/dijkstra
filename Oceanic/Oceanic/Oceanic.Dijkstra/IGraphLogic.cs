@@ -37,5 +37,7 @@ namespace Oceanic.Dijkstra
         /// <param name="vertexIdentifier"></param>
         /// <returns></returns>
         IVertex GetVertexByIdentifier(int vertexIdentifier);
+
+        void ApplyGraphSegment(IEnumerable<ISegment> routes);
     }
 }

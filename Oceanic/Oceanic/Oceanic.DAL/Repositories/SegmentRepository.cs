@@ -42,7 +42,8 @@ namespace Oceanic.DAL
                             Name = el.Name
                         },
                         Price = price,
-                        Time = (decimal) s.Time
+                        Time = (decimal) s.Time,
+                        ProviderName = "Oceanic"
                     })
                 .ToList();
         }
