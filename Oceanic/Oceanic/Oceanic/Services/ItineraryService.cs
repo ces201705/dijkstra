@@ -3,21 +3,73 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Oceanic.DAL;
 using Oceanic.ViewModel;
 using Oceanic.DAL.Models;
+using Oceanic.Dijkstra;
 
 namespace Oceanic.Services
 {
     public interface IItineraryService
     {
-        List<SegmentModel> FindItinerary();
+        IItinerary FindItinerary(SearchViewModel model);
     }
 
     public class ItineraryService : IItineraryService
     {
-        public List<SegmentModel> FindItinerary()
+        private ISegmentRepository _segmentRepository;
+        private IItineraryFinder _itineraryFinder;
+        private IGraphLogic _graphLogic;
+
+        public ItineraryService(ISegmentRepository segmentRepository, IItineraryFinder iItineraryFinder, IGraphLogic graphLogic)
         {
-            return new List<SegmentModel>();
+            _segmentRepository = segmentRepository;
+            _itineraryFinder = iItineraryFinder;
+            _graphLogic = graphLogic;
+        }
+
+        public IItinerary FindItinerary(SearchViewModel model)
+        {
+            var segmentModels = GetSegments(model);
+            var segments = ConverterHelper.Convert(segmentModels);
+            _graphLogic.ApplyGraphSegment(segments);
+
+            var vertex1 = _graphLogic.GetVertexByIdentifier(model.StartLocation.Id);
+            var vertex2 = _graphLogic.GetVertexByIdentifier(model.EndLocation.Id);
+            var weightFunc = GetweightFunction(model);
+
+            return _itineraryFinder.GetItinerary(vertex1, vertex2, weightFunc);
+        }
+
+        private IList<SegmentModel> GetSegments(SearchViewModel model)
+        {
+            var segments = _segmentRepository.GetSegmentsForSearch(model.Weight, GetMaxSize(model));
+            return segments;
+        }
+
+        private int GetMaxSize(SearchViewModel model)
+        {
+            return new List<int>()
+            {
+                model.Depth,
+                model.Height,
+                model.Width
+            }.Max();
+        }
+
+        private Func<ISegment, decimal> GetweightFunction(SearchViewModel mode)
+        {
+            switch (mode.ItineraryType)
+            {
+                case ItineraryType.Cheapest:
+                    return x => x.SegmentValues.Cost;
+                case ItineraryType.Fastest:
+                    return x => x.SegmentValues.Time;
+                case ItineraryType.Optimal:
+                    return x => 0.4m * x.SegmentValues.Time + 0.6m * x.SegmentValues.Cost;
+                default:
+                    return x => x.SegmentValues.Time;
+            }
         }
     }
 }

@@ -13,5 +13,6 @@ namespace Oceanic.DAL.Models
 
         public Decimal Time { get; set; }
         public Decimal Price { get; set; }
+        public string ProviderName { get; set; }
     }
 }
