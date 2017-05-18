@@ -10,20 +10,24 @@ namespace Oceanic.Models
     public class SearchViewModel
     {
         [Required]
+        [Range(1, int.MaxValue)]
         [Display(Name = "Height [m]")]
-        public int Height { get; set; }
+        public int? Height { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue)]
         [Display(Name = "Width [m]")]
-        public int Width { get; set; }
+        public int? Width { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue)]
         [Display(Name = "Depth [m]")]
-        public int Depth { get; set; }
+        public int? Depth { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue)]
         [Display(Name = "Weight [kg]")]
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
 
         [Required]
         public ItineraryType ItineraryType { get; set; }

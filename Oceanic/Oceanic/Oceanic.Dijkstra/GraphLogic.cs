@@ -6,11 +6,7 @@ namespace Oceanic.Dijkstra
 {
     public class GraphLogic : IGraphLogic
     {
-        public Dictionary<int, ConcreteVertexData> VertexesData
-        {
-            get;
-            set;
-        }
+        public Dictionary<int, ConcreteVertexData> VertexesData { get; set; }
 
         private Dictionary<int, IVertex> vertexesDictionary;
 
@@ -29,10 +25,7 @@ namespace Oceanic.Dijkstra
         public List<IVertex> Vertexes
 
         {
-            get
-            {
-                return VertexesDictionary.Values.ToList();
-            }
+            get { return VertexesDictionary.Values.ToList(); }
         }
 
         public GraphLogic()

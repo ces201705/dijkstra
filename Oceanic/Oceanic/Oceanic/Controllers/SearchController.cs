@@ -27,10 +27,6 @@ namespace Oceanic.Controllers
             SearchViewModel searchViewModel = new SearchViewModel();
             searchViewModel.Locations = entities.Location.ToList();
             searchViewModel.ItineraryType = ItineraryType.Cheapest;
-            searchViewModel.Weight = 0;
-            searchViewModel.Depth = 0;
-            searchViewModel.Height = 0;
-            searchViewModel.Width = 0;
 
             return View(searchViewModel);
         }

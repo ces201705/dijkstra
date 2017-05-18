@@ -43,7 +43,7 @@ namespace Oceanic.Services
 
         private IList<SegmentModel> GetSegments(SearchViewModel model)
         {
-            var segments = _segmentRepository.GetSegmentsForSearch(model.Weight, GetMaxSize(model));
+            var segments = _segmentRepository.GetSegmentsForSearch(model.Weight.Value, GetMaxSize(model));
             return segments;
         }
 
@@ -51,9 +51,9 @@ namespace Oceanic.Services
         {
             return new List<int>()
             {
-                model.Depth,
-                model.Height,
-                model.Width
+                (int)model.Depth,
+                (int)model.Height,
+                (int)model.Width
             }.Max();
         }
 
