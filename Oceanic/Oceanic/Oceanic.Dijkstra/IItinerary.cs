@@ -20,5 +20,10 @@ namespace Oceanic.Dijkstra
         }
 
         bool IsValid { get; set; }
+
+        decimal TotalTime { get;  }
+
+
+        decimal TotalCost { get;  }
     }
 }
