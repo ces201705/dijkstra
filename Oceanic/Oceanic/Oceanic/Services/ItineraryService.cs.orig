@@ -43,9 +43,14 @@ namespace Oceanic.Services
 
         private IList<SegmentModel> GetSegments(SearchViewModel model)
         {
+<<<<<<< HEAD
+            var segments = _segmentRepository.GetSegmentsForSearch(model.Weight.Value, GetMaxSize(model));
+=======
             Entities context = new Entities();
             List<Location> locations = context.Location.ToList();
-            var segments = _segmentRepository.GetSegmentsForSearch(model.Weight.Value, GetMaxSize(model));
+
+
+            var segments = _segmentRepository.GetSegmentsForSearch(model.Weight, GetMaxSize(model));
 
             //List<TestSegment> telstarSegments = ExternalServiceHelper.GetTestSegments();
             //foreach (TestSegment segment in telstarSegments)
@@ -70,8 +75,8 @@ namespace Oceanic.Services
             //    segments.Add(segmentModel);
             //}
 
-            List<TelstarSegment> telstarSegments = ExternalServiceHelper.GetTelstarSegments();
-            foreach (TelstarSegment segment in telstarSegments)
+            List<TelstarSegment> eastIndiaSegments = ExternalServiceHelper.GetTelstarSegments();
+            foreach (TelstarSegment segment in eastIndiaSegments)
             {
                 Location startLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.SourceLocationName.ToLower().Trim());
                 if (startLocation == null)
@@ -94,6 +99,7 @@ namespace Oceanic.Services
 
             }
 
+>>>>>>> dc0652d315d6bea0305129c3b72feaae86ec822e
             return segments;
         }
 
