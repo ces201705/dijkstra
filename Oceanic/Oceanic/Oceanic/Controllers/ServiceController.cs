@@ -26,8 +26,6 @@ namespace Oceanic.Controllers
         {
             var segments = new SegmentRepository(new Entities()).GetSegmentsForSearch(parcelWeight, parcelMaxDimensionSize).Select(o => new { SourceLocationName = o.StartLocation.Name, EndLocationName = o.EndLocation.Name, Time = o.Time, Price = o.Price, ProviderName="Oceanic" });
 
-            //string x = ExternalServiceHelper.GetTelstarSegments();
-
             return Json(segments, JsonRequestBehavior.AllowGet);
         }
 
