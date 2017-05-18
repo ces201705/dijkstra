@@ -22,9 +22,9 @@ namespace Oceanic.Controllers
             _segmentRepository = segmentRepository1;
         }
 
-        public ActionResult GetSegments(decimal weight)
+        public ActionResult GetSegments(int parcelWeight, int parcelMaxDimensionSize)
         {
-            var segments = new SegmentRepository(new Entities()).GetSegmentsForSearch(weight);
+            var segments = new SegmentRepository(new Entities()).GetSegmentsForSearch(parcelWeight, parcelMaxDimensionSize);
 
             return Json(segments, JsonRequestBehavior.AllowGet);
         }

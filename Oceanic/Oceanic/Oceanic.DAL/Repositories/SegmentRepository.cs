@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Oceanic.DAL.Models;
@@ -8,7 +9,7 @@ namespace Oceanic.DAL
 {
     public interface ISegmentRepository
     {
-        IList<SegmentModel> GetSegmentsForSearch(decimal weight);
+        IList<SegmentModel> GetSegmentsForSearch(int parcelWeight, int parcelMaxDimensionSize);
     }
     public class SegmentRepository : BaseRepository<Segment>, ISegmentRepository
     {
@@ -16,9 +17,13 @@ namespace Oceanic.DAL
         {
         }
 
-        public IList<SegmentModel> GetSegmentsForSearch(decimal weight)
+        public IList<SegmentModel> GetSegmentsForSearch(int parcelWeight, int parcelMaxDimensionSize)
         {
-            var price = GetPrice(weight);
+            if (!Valid(parcelMaxDimensionSize))
+            {
+                return new List<SegmentModel>();
+            }
+            var price = GetPrice(parcelWeight);
             return (from s in Context.Segment
                     join sl in Context.Location on s.StartLocationId equals sl.Id
                     join el in Context.Location on s.EndLocationId equals el.Id
@@ -42,7 +47,12 @@ namespace Oceanic.DAL
                 .ToList();
         }
 
-        private decimal GetPrice(decimal weight)
+        private bool Valid(int parcelMaxDimensionSize)
+        {
+            return parcelMaxDimensionSize <= 10;
+        }
+
+        private decimal GetPrice(int weight)
         {
             if (weight <= 1)
             {
