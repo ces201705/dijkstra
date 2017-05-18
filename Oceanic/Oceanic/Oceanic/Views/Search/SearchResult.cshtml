@@ -1,5 +1,20 @@
-﻿@{
-    ViewBag.Title = "Search result";
-}
+﻿@model Oceanic.Models.SearchResultViewModel
 
-<p>Seearch result !!!</p>
+    @{
+        ViewBag.Title = "Search result";
+    }
+
+    <p>Seearch result !!!</p>
+
+    @foreach (var item in Model.Segments)
+    {
+        <div>
+            @item.LocationName
+            <hr />
+        </div>
+    }
+
+
+<p>Total time: @Model.TotalTime</p>
+<p>Total cost: @Model.TotalPrice</p>
+

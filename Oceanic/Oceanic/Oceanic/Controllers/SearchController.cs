@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oceanic.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,8 +19,14 @@ namespace Oceanic.Controllers
         [Authorize]
         public ActionResult SearchResult()
         {
-            return View();
+            SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
+            searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Katowice" });
+            searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Warszawa" });
+            searchResultViewModel.Segments.Add(new ResultSegment() { LocationName = "Zakopane" });
+            searchResultViewModel.TotalPrice = 30;
+            searchResultViewModel.TotalTime = 10;
+            return View(searchResultViewModel);
         }
-        
+
     }
 }
