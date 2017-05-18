@@ -20,13 +20,15 @@ namespace Oceanic.Controllers
 
         // GET: Search
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(SearchViewModel searchViewModel = null)
         {
             Oceanic.DAL.Entities entities = new DAL.Entities();
-
-            SearchViewModel searchViewModel = new SearchViewModel();
+            if (searchViewModel == null)
+            {
+                searchViewModel = new SearchViewModel();
+                searchViewModel.ItineraryType = ItineraryType.Cheapest;
+            }
             searchViewModel.Locations = entities.Location.ToList();
-            searchViewModel.ItineraryType = ItineraryType.Cheapest;
 
             return View(searchViewModel);
         }
@@ -34,6 +36,10 @@ namespace Oceanic.Controllers
         [Authorize]
         public ActionResult SearchResult(SearchViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.RedirectToAction("Index");
+            }
             var result = _itineraryService.FindItinerary(model);
 
 
