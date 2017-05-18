@@ -13,7 +13,19 @@ namespace Oceanic.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            Oceanic.DAL.Entities entities = new DAL.Entities();
+
+            SearchViewModel searchViewModel = new SearchViewModel();
+            searchViewModel.Locations = new List<DAL.Location>();
+            searchViewModel.Locations.Add(new DAL.Location() { Name = "Warszawa" });
+            searchViewModel.Locations.Add(new DAL.Location() { Name = "Serock" });
+            searchViewModel.ItineraryType = "Cheapest";
+            searchViewModel.Weight = 0;
+            searchViewModel.Depth = 0;
+            searchViewModel.Height = 0;
+            searchViewModel.Width = 0;
+
+            return View(searchViewModel);
         }
 
         [Authorize]

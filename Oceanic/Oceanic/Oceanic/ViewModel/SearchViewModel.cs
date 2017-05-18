@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oceanic.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,22 +11,23 @@ namespace Oceanic.Models
     {
         [Required]
         [Display(Name = "Height")]
-        public string Height { get; set; }
+        public int Height { get; set; }
 
         [Required]
         [Display(Name = "Width")]
-        public string Width { get; set; }
+        public int Width { get; set; }
 
         [Required]
         [Display(Name = "Depth")]
-        public string Depth { get; set; }
+        public int Depth { get; set; }
 
         [Required]
         [Display(Name = "Weight")]
-        public string Weight { get; set; }
+        public int Weight { get; set; }
 
         [Required]
         public string ItineraryType { get; set; }
 
+        public List<Location> Locations { get; set; }
     }
 }

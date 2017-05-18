@@ -46,40 +46,42 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <select class="form-control">
-                                <option value="katowice">Katowice</option>
-                                <option value="warszawa">Warszawa</option>
-                                <option value="zakopane">Zakopane</option>
+                                @foreach (var item in Model.Locations)
+                                {
+                                    <option value="@item.Name">@item.Name</option>
+                                }
                             </select>
                         </div>
                         <div class="form-group">
                             <select class="form-control">
-                                <option value="katowice">Katowice</option>
-                                <option value="warszawa">Warszawa</option>
-                                <option value="zakopane">Zakopane</option>
+                                @foreach (var item in Model.Locations)
+                                {
+                                    <option value="@item.Name">@item.Name</option>
+                                }
                             </select>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <p>Itinerary type</p>
                     </div>
-                <div class="col-md-2">
-                    <div class="radio">
-                        <label>
-                            @Html.RadioButtonFor(m => m.ItineraryType, "Cheapest")Cheapest
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            @Html.RadioButtonFor(m => m.ItineraryType, "Fastest")Fastest
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            @Html.RadioButtonFor(m => m.ItineraryType, "Optimal")Optimal
-                        </label>
+                    <div class="col-md-2">
+                        <div class="radio">
+                            <label>
+                                @Html.RadioButtonFor(m => m.ItineraryType, "Cheapest")Cheapest
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                @Html.RadioButtonFor(m => m.ItineraryType, "Fastest")Fastest
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                @Html.RadioButtonFor(m => m.ItineraryType, "Optimal")Optimal
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
                 <div class="row">
                     <div class="form-group">
                         <div class="col-md-11" style="text-align: right">
