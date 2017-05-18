@@ -40,12 +40,40 @@ namespace Oceanic.Services
             {
                 return new Itinerary()
                 {
-                    IsValid = true
+                    IsValid = true,
+                    Segments = new List<ISegment>()
                 };
             }
             var weightFunc = GetweightFunction(model);
 
-            return _itineraryFinder.GetItinerary(vertex1, vertex2, weightFunc);
+            var result = _itineraryFinder.GetItinerary(vertex1, vertex2, weightFunc);
+
+            return FixOrder(result, model);
+        }
+
+        private IItinerary FixOrder(IItinerary result, SearchViewModel model)
+        {
+            if (!result.Segments.Any())
+            {
+                return result;
+            }
+            result.Segments.Reverse();
+            if (result.Segments[0].VertexStart.VertexIdentifier != model.StartLocationId)
+            {
+                var temp = result.Segments[0].VertexStart;
+                result.Segments[0].VertexStart = result.Segments[0].VertexEnd;
+                result.Segments[0].VertexEnd = temp;
+            }
+            for (int i = 1; i < result.Segments.Count; i++)
+            {
+                if (result.Segments[i].VertexStart.VertexIdentifier != result.Segments[i-1].VertexEnd.VertexIdentifier)
+                {
+                    var temp = result.Segments[i].VertexStart;
+                    result.Segments[i].VertexStart = result.Segments[i].VertexEnd;
+                    result.Segments[i].VertexEnd = temp;
+                }
+            }
+            return result;
         }
 
         private IList<SegmentModel> GetSegments(SearchViewModel model)
