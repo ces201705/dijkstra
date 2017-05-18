@@ -51,7 +51,6 @@
                         </div>
                         <div class="form-group">
                             <p>Destination.</p>
-                            @Html.ValidationSummary(true);
                             @Html.DropDownListFor(model => model.EndLocationId, new SelectList(Model.Locations, "Id", "Name"), new
                             {
                                 @class = "form-control"
