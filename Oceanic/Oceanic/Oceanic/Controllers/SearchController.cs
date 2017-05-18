@@ -14,5 +14,12 @@ namespace Oceanic.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult SearchResult()
+        {
+            return View();
+        }
+        
     }
 }
