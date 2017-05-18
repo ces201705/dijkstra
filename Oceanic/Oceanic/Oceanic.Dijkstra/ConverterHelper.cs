@@ -22,7 +22,7 @@ namespace Oceanic.Dijkstra
             SegmentValues segmentValues = new SegmentValues();
             segmentValues.Cost = segment.Price;
             segmentValues.Time = segment.Time;
-            segmentValues.Provider = "Telstar";
+            segmentValues.Provider = segment.ProviderName;
             Segment returnItem = new Segment(vertexStart, vertexEnd, segmentValues);
 
             return returnItem;
