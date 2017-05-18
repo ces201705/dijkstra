@@ -274,6 +274,10 @@
       <Project>{491b20ec-b97f-476a-b131-db8123f67222}</Project>
       <Name>Oceanic.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Oceanic.Dijkstra\Oceanic.Dijkstra.csproj">
+      <Project>{dfe71c68-3da1-46dd-9a59-f5e9d3de3a26}</Project>
+      <Name>Oceanic.Dijkstra</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Oceanic.Models;
+using Oceanic.DAL.Models;
 
 namespace Oceanic.DAL
 {
@@ -24,8 +24,18 @@ namespace Oceanic.DAL
                     join el in Context.Locations on s.EndLocationId equals el.Id
                     select new SegmentModel
                     {
-                        SourceLocationName = sl.Name,
-                        EndLocationName = el.Name,
+                        StartLocationId = sl.Id,
+                        StartLocation = new LocationModel()
+                        {
+                            Id = sl.Id,
+                            Name = sl.Name
+                        },
+                        EndLocationId = el.Id,
+                        EndLocation = new LocationModel()
+                        {
+                            Id = el.Id,
+                            Name = el.Name
+                        },
                         Price = price,
                         Time = (decimal) s.Time
                     })

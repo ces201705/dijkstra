@@ -89,11 +89,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Time" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="StartLocationId" Type="Int32" />
           <Property Name="EndLocationId" Type="Int32" />
-          <NavigationProperty Name="Location" Relationship="Model.FK_Segment_EndLocation" FromRole="Segment" ToRole="Location" />
-          <NavigationProperty Name="Location1" Relationship="Model.FK_Segment_StartLocation" FromRole="Segment" ToRole="Location" />
+          <NavigationProperty Name="EndLocation" Relationship="Model.FK_Segment_EndLocation" FromRole="Segment" ToRole="Location" />
+          <NavigationProperty Name="StartLocation" Relationship="Model.FK_Segment_StartLocation" FromRole="Segment" ToRole="Location" />
         </EntityType>
         <Association Name="FK_Segment_EndLocation">
           <End Type="Model.Location" Role="Location" Multiplicity="0..1" />
@@ -138,7 +137,6 @@
               <MappingFragment StoreEntitySet="Segment">
                 <ScalarProperty Name="EndLocationId" ColumnName="EndLocationId" />
                 <ScalarProperty Name="StartLocationId" ColumnName="StartLocationId" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
