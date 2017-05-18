@@ -12,7 +12,7 @@ namespace Oceanic.Services
 {
     public interface IItineraryService
     {
-        List<SegmentModel> FindItinerary(SearchViewModel model);
+        IItinerary FindItinerary(SearchViewModel model);
     }
 
     public class ItineraryService : IItineraryService
@@ -28,7 +28,7 @@ namespace Oceanic.Services
             _graphLogic = graphLogic;
         }
 
-        public List<SegmentModel> FindItinerary(SearchViewModel model)
+        public IItinerary FindItinerary(SearchViewModel model)
         {
             var segmentModels = GetSegments(model);
             var segments = ConverterHelper.Convert(segmentModels);
@@ -37,11 +37,7 @@ namespace Oceanic.Services
             var vertex1 = _graphLogic.GetVertexByIdentifier(model.StartLocation.Id);
             var vertex2 = _graphLogic.GetVertexByIdentifier(model.EndLocation.Id);
 
-            _itineraryFinder.GetItinerary(vertex1, vertex2, x => x.SegmentValues.Time);
-
-
-
-            return new List<SegmentModel>();
+            return _itineraryFinder.GetItinerary(vertex1, vertex2, x => x.SegmentValues.Time);
         }
 
         private IList<SegmentModel> GetSegments(SearchViewModel model)

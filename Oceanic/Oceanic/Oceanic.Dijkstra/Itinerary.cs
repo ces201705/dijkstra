@@ -18,5 +18,9 @@ namespace Oceanic.Dijkstra
             get;
             set;
         }
+
+        public decimal TotalTime => Segments.Sum(x => x.SegmentValues.Time);
+
+        public decimal TotalCost => Segments.Sum(x => x.SegmentValues.Cost);
     }
 }

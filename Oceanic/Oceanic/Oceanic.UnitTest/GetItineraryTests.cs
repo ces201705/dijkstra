@@ -11,7 +11,7 @@ using Oceanic.Dijkstra;
 namespace UnitTests
 {
     [TestClass]
-    public class AlgorithmLogicTests : BaseTest
+    public class GetItineraryTests : BaseTest
     {
         private List<int> Act(List<SegmentModel> segments, int a, int b, Func<ISegment, decimal> weightFunction)
         {
