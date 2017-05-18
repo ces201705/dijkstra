@@ -25,72 +25,84 @@
                     <img src="../images/boat.png" alt="Oceanic Airlines">
                 </div>
             </div>
-            <div class="col-md-4">
-                <table class="result table-bordered" style="margin: 0px auto;">
-                    @{
-                        string styles;
-                        ISegment previousSegment = null;
-                        Model.Segments.Reverse();
-                    }
+            @{
+                bool valid = Model.IsValid;
+            }
+            @{
+                if (valid)
+                {
+                    <p>Another vendor didn't provide data</p>
+                }
+                else
+                {
+                    <div class="col-md-4">
+                        <table class="result table-bordered" style="margin: 0px auto;">
+                            @{
+                                string styles;
+                                ISegment previousSegment = null;
+                                Model.Segments.Reverse();
+                            }
+                            @foreach (var item in Model.Segments)
+                            {
+                                if (@item.SegmentValues.Provider == "Telstar")
+                                {
+                                    styles = "background-color: #ed1c24";
+                                }
+                                else if (@item.SegmentValues.Provider == "Oceanic")
+                                {
+                                    styles = "background-color: #22b14c";
+                                }
+                                else
+                                {
+                                    styles = "background-color: #3f48cc";
+                                }
+                                if (previousSegment == null)
+                                {
+                                    <tr>
+                                        <td style="@styles; color: white">
+                                            @item.VertexStart
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="@styles; color: white">
+                                            @item.VertexEnd
+                                        </td>
+                                    </tr>
+                                }
+                                else if (previousSegment.SegmentValues.Provider != @item.SegmentValues.Provider)
+                                {
+                                    <tr>
+                                        <td style="@styles; color: white">
+                                            @item.VertexStart
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="@styles; color: white">
+                                            @item.VertexEnd
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td style="@styles; color: white">
+                                            @item.VertexEnd
+                                        </td>
+                                    </tr>
+                                }
+                                previousSegment = @item;
+                            }
+                        </table>
+                    </div>
 
-                    @foreach (var item in Model.Segments)
-                    {
-                        if (@item.SegmentValues.Provider == "Telstar")
-                        {
-                            styles = "background-color: #ed1c24";
-                        }
-                        else if (@item.SegmentValues.Provider == "Oceanic")
-                        {
-                            styles = "background-color: #22b14c";
-                        }
-                        else
-                        {
-                            styles = "background-color: #3f48cc";
-                        }
-                        if (previousSegment == null)
-                        {
-                            <tr>
-                                <td style="@styles; color: white">
-                                    @item.VertexStart
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="@styles; color: white">
-                                    @item.VertexEnd
-                                </td>
-                            </tr>
-                        }
-                        else if (previousSegment.SegmentValues.Provider != @item.SegmentValues.Provider)
-                        {
-                            <tr>
-                                <td style="@styles; color: white">
-                                    @item.VertexStart
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="@styles; color: white">
-                                    @item.VertexEnd
-                                </td>
-                            </tr>
-                        }
-                        else
-                        {
-                            <tr>
-                                <td style="@styles; color: white">
-                                    @item.VertexEnd
-                                </td>
-                            </tr>
-                        }
-                        previousSegment = @item;
-                    }
-                </table>
-            </div>
-
-            <div class="col-md-4" style="text-align: center">
-                <p>Total time: @(Model.TotalTime/60) H</p>
-                <p>Total cost: @Model.TotalCost USD</p>
-            </div>
+                    <div class="col-md-4" style="text-align: center">
+                        <p>Total time: @(Model.TotalTime / 60) H</p>
+                        <p>Total cost: @Model.TotalCost USD</p>
+                    </div>
+                }
+            }
         </div>
+    </div>
         <div class="row">
             <div class="col-md-12" style="margin-top: 5%; text-align: center">
                 <a>@Html.ActionLink("Search again", "Index", "Search", routeValues: null, htmlAttributes: new { id = "searchLink", @class = "btn btn-primary btn-lg" })</a>

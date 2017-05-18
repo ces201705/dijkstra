@@ -18,5 +18,7 @@ namespace Oceanic.Dijkstra
         {
             get;
         }
+
+        bool IsValid { get; set; }
     }
 }

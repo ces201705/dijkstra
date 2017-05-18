@@ -22,5 +22,8 @@ namespace Oceanic.Dijkstra
         public decimal TotalTime => Segments.Sum(x => x.SegmentValues.Time);
 
         public decimal TotalCost => Segments.Sum(x => x.SegmentValues.Cost);
+
+
+        public bool IsValid { get; set; }
     }
 }
