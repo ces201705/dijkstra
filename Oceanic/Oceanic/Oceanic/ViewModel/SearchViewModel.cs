@@ -10,19 +10,19 @@ namespace Oceanic.Models
     public class SearchViewModel
     {
         [Required]
-        [Display(Name = "Height")]
+        [Display(Name = "Height [m]")]
         public int Height { get; set; }
 
         [Required]
-        [Display(Name = "Width")]
+        [Display(Name = "Width [m]")]
         public int Width { get; set; }
 
         [Required]
-        [Display(Name = "Depth")]
+        [Display(Name = "Depth [m]")]
         public int Depth { get; set; }
 
         [Required]
-        [Display(Name = "Weight")]
+        [Display(Name = "Weight [kg]")]
         public int Weight { get; set; }
 
         [Required]
