@@ -90,6 +90,7 @@ namespace Oceanic.Services
                 segmentModel.EndLocation = new LocationModel() { Id = endLocation.Id, Name = endLocation.Name };
                 segmentModel.Price = segment.Price;
                 segmentModel.Time = segment.Time;
+                segmentModel.ProviderName = "Telstar";
                 segments.Add(segmentModel);
 
             }
