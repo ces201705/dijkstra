@@ -22,6 +22,11 @@ namespace Oceanic.Controllers
         [Authorize]
         public ActionResult Index(SearchViewModel searchViewModel = null)
         {
+            if (TempData["DropError"]!=null)
+            {
+                ModelState.AddModelError("DropError", TempData["DropError"].ToString());
+            }
+            
             Oceanic.DAL.Entities entities = new DAL.Entities();
             if (searchViewModel == null)
             {
@@ -38,6 +43,11 @@ namespace Oceanic.Controllers
         {
             if (!ModelState.IsValid)
             {
+                return this.RedirectToAction("Index");
+            }
+            if (model.StartLocationId==model.EndLocationId)
+            {
+                TempData["DropError"] = "Choose not the same locations";
                 return this.RedirectToAction("Index");
             }
             var result = _itineraryService.FindItinerary(model);
