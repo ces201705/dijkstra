@@ -67,7 +67,7 @@ namespace Oceanic.Dijkstra
 
         public IVertex GetVertexByIdentifier(int vertexIdentifier)
         {
-            return VertexesDictionary[vertexIdentifier];
+            return VertexesData[vertexIdentifier].VertexFrom;
         }
     }
 }

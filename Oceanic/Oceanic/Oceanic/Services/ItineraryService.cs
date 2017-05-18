@@ -70,29 +70,28 @@ namespace Oceanic.Services
             //    segments.Add(segmentModel);
             //}
 
-            List<TelstarSegment> telstarSegments = ExternalServiceHelper.GetTelstarSegments();
-            foreach (TelstarSegment segment in telstarSegments)
-            {
-                Location startLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.SourceLocationName.ToLower().Trim());
-                if (startLocation == null)
-                {
-                    continue;
-                }
+            //List<TelstarSegment> telstarSegments = ExternalServiceHelper.GetTelstarSegments();
+            //foreach (TelstarSegment segment in telstarSegments)
+            //{
+            //    Location startLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.SourceLocationName.ToLower().Trim());
+            //    if (startLocation == null)
+            //    {
+            //        continue;
+            //    }
 
-                Location endLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.DestinationLocationName.ToLower().Trim());
-                if (endLocation == null)
-                {
-                    continue;
-                }
+            //    Location endLocation = locations.FirstOrDefault(o => o.Name.ToLower().Trim() == segment.DestinationLocationName.ToLower().Trim());
+            //    if (endLocation == null)
+            //    {
+            //        continue;
+            //    }
 
-                SegmentModel segmentModel = new SegmentModel();
-                segmentModel.StartLocation = new LocationModel() { Id = startLocation.Id, Name = startLocation.Name };
-                segmentModel.EndLocation = new LocationModel() { Id = endLocation.Id, Name = endLocation.Name };
-                segmentModel.Price = segment.Price;
-                segmentModel.Time = segment.Time;
-                segments.Add(segmentModel);
-
-            }
+            //    SegmentModel segmentModel = new SegmentModel();
+            //    segmentModel.StartLocation = new LocationModel() { Id = startLocation.Id, Name = startLocation.Name };
+            //    segmentModel.EndLocation = new LocationModel() { Id = endLocation.Id, Name = endLocation.Name };
+            //    segmentModel.Price = segment.Price;
+            //    segmentModel.Time = segment.Time;
+            //    segments.Add(segmentModel);
+            //}
 
             return segments;
         }
