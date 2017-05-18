@@ -184,29 +184,6 @@
     <Compile Include="Controllers\ItineraryController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
-    <Compile Include="DAL\BaseRepository.cs" />
-    <Compile Include="DAL\Location.cs">
-      <DependentUpon>ModelOceanic.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\ModelOceanic.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelOceanic.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\ModelOceanic.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelOceanic.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\ModelOceanic.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelOceanic.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Segment.cs">
-      <DependentUpon>ModelOceanic.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\SegmentRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,29 +198,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DAL\ModelOceanic.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelOceanic.edmx</DependentUpon>
-      <LastGenOutput>ModelOceanic.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DAL\ModelOceanic.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelOceanic.edmx</DependentUpon>
-      <LastGenOutput>ModelOceanic.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="DAL\ModelOceanic.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelOceanic.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DAL\ModelOceanic.edmx.diagram">
-      <DependentUpon>ModelOceanic.edmx</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\wa-oapln - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\wa-oapln - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -309,6 +269,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Oceanic.DAL\Oceanic.DAL.csproj">
+      <Project>{491b20ec-b97f-476a-b131-db8123f67222}</Project>
+      <Name>Oceanic.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
