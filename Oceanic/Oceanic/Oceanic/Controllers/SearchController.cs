@@ -43,12 +43,12 @@ namespace Oceanic.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.RedirectToAction("Index");
+                return this.RedirectToAction("Index", model);
             }
             if (model.StartLocationId==model.EndLocationId)
             {
                 TempData["DropError"] = "Choose not the same locations";
-                return this.RedirectToAction("Index");
+                return this.RedirectToAction("Index", model);
             }
             var result = _itineraryService.FindItinerary(model);
 
