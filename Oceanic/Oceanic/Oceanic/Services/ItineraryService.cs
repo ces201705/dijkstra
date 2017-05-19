@@ -30,6 +30,8 @@ namespace Oceanic.Services
 
         public IItinerary FindItinerary(SearchViewModel model)
         {
+            _graphLogic = new GraphLogic();
+            _itineraryFinder = new ItineraryFinder(_graphLogic);
             var segmentModels = GetSegments(model);
             var segments = ConverterHelper.Convert(segmentModels);
             _graphLogic.ApplyGraphSegment(segments);
